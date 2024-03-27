@@ -45,32 +45,8 @@ class _FlutterPainterExampleState extends State<FlutterPainterExample> {
     ..strokeCap = StrokeCap.round;
 
   static const List<String> imageLinks = [
-    "https://i.imgur.com/btoI5OX.png",
-    "https://i.imgur.com/EXTQFt7.png",
-    "https://i.imgur.com/EDNjJYL.png",
-    "https://i.imgur.com/uQKD6NL.png",
-    "https://i.imgur.com/cMqVRbl.png",
-    "https://i.imgur.com/1cJBAfI.png",
-    "https://i.imgur.com/eNYfHKL.png",
-    "https://i.imgur.com/c4Ag5yt.png",
-    "https://i.imgur.com/GhpCJuf.png",
-    "https://i.imgur.com/XVMeluF.png",
-    "https://i.imgur.com/mt2yO6Z.png",
-    "https://i.imgur.com/rw9XP1X.png",
-    "https://i.imgur.com/pD7foZ8.png",
-    "https://i.imgur.com/13Y3vp2.png",
-    "https://i.imgur.com/ojv3yw1.png",
-    "https://i.imgur.com/f8ZNJJ7.png",
-    "https://i.imgur.com/BiYkHzw.png",
-    "https://i.imgur.com/snJOcEz.png",
-    "https://i.imgur.com/b61cnhi.png",
-    "https://i.imgur.com/FkDFzYe.png",
-    "https://i.imgur.com/P310x7d.png",
-    "https://i.imgur.com/5AHZpua.png",
-    "https://i.imgur.com/tmvJY4r.png",
-    "https://i.imgur.com/PdVfGkV.png",
-    "https://i.imgur.com/1PRzwBf.png",
-    "https://i.imgur.com/VeeMfBS.png",
+    "https://pic.rmb.bdstatic.com/bjh/914b8c0f9814b14c5fedeec7ec6615df5813.jpeg",
+    "https://i0.hdslb.com/bfs/archive/609b9b5611900fad4b1f505687b7fe6b8a3442ad.jpg",
   ];
 
   @override
@@ -105,8 +81,7 @@ class _FlutterPainterExampleState extends State<FlutterPainterExample> {
   /// to use it as a background
   void initBackground() async {
     // Extension getter (.image) to get [ui.Image] from [ImageProvider]
-    final image =
-        await const NetworkImage('https://picsum.photos/1920/1080/').image;
+    final image = await const AssetImage('assets/image.jpeg').image;
 
     setState(() {
       backgroundImage = image;
