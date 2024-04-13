@@ -47,6 +47,7 @@ class OvalDrawable extends Sized2DDrawable implements ShapeDrawable {
   @override
   void drawObject(Canvas canvas, Size size) {
     final drawingSize = this.size * scale;
+    print("OvalDrawable $size $drawingSize");
     canvas.drawOval(
         Rect.fromCenter(
             center: position,
