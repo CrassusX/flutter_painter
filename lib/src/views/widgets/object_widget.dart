@@ -1024,10 +1024,10 @@ class _ObjectWidgetState extends State<_ObjectWidget> {
     final index = entry.key;
 
     final drawable = entry.value;
+    final vertical = axis == Axis.vertical;
 
     if (drawable is Sized1DDrawable) {
       final initial = initialScaleDrawables[index] as Sized1DDrawable;
-      final vertical = axis == Axis.vertical;
       final length =
           ((vertical ? details.localPosition.dy : details.localPosition.dx) *
               (isReversed ? -1 : 1));
@@ -1061,7 +1061,6 @@ class _ObjectWidgetState extends State<_ObjectWidget> {
     if (initial is! Sized2DDrawable?) return;
 
     if (initial == null) return;
-    final vertical = axis == Axis.vertical;
     final length =
         ((vertical ? details.localPosition.dy : details.localPosition.dx) *
             (isReversed ? -1 : 1));
