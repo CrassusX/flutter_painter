@@ -46,6 +46,9 @@ class LineDrawable extends Sized1DDrawable implements ShapeDrawable {
   /// Draws the line on the provided [canvas] of size [size].
   @override
   void drawObject(Canvas canvas, Size size) {
+    if (kDebugMode) {
+      print("drawing line $length");
+    }
     canvas.drawLine(position.translate(-length / 2 * scale, 0),
         position.translate(length / 2 * scale, 0), paint);
   }

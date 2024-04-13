@@ -1121,7 +1121,6 @@ class _ObjectWidgetState extends State<_ObjectWidget> {
       transformationScale = math.sqrt(_m4storage[8] * _m4storage[8] +
           _m4storage[9] * _m4storage[9] +
           _m4storage[10] * _m4storage[10]);
-      print("onTransformUpdated $transformationScale");
     });
   }
 }
