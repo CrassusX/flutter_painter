@@ -357,6 +357,74 @@ class _ObjectWidgetState extends State<_ObjectWidget> {
                                             ),
                                           ),
                                         ],
+                                        if (entry.value is Sized1DDrawable) ...[
+                                          Positioned(
+                                            left:
+                                                objectPadding - (controlsSize),
+                                            top: (size.height / 2) +
+                                                objectPadding -
+                                                (controlsSize / 2),
+                                            width: controlsSize,
+                                            height: controlsSize,
+                                            child: MouseRegion(
+                                              cursor:
+                                                  SystemMouseCursors.resizeLeft,
+                                              child: GestureDetector(
+                                                onPanStart: (details) =>
+                                                    onResizeControlPanStart(
+                                                        6, entry, details),
+                                                onPanUpdate: (details) =>
+                                                    onResizeControlPanUpdate(
+                                                        entry,
+                                                        details,
+                                                        constraints,
+                                                        Axis.horizontal,
+                                                        true),
+                                                onPanEnd: (details) =>
+                                                    onResizeControlPanEnd(
+                                                        6, entry, details),
+                                                child: _ObjectControlBox(
+                                                  active:
+                                                      controlsAreActive[6] ??
+                                                          false,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                          Positioned(
+                                            right:
+                                                objectPadding - (controlsSize),
+                                            top: (size.height / 2) +
+                                                objectPadding -
+                                                (controlsSize / 2),
+                                            width: controlsSize,
+                                            height: controlsSize,
+                                            child: MouseRegion(
+                                              cursor: SystemMouseCursors
+                                                  .resizeRight,
+                                              child: GestureDetector(
+                                                onPanStart: (details) =>
+                                                    onResizeControlPanStart(
+                                                        7, entry, details),
+                                                onPanUpdate: (details) =>
+                                                    onResizeControlPanUpdate(
+                                                        entry,
+                                                        details,
+                                                        constraints,
+                                                        Axis.horizontal,
+                                                        false),
+                                                onPanEnd: (details) =>
+                                                    onResizeControlPanEnd(
+                                                        7, entry, details),
+                                                child: _ObjectControlBox(
+                                                  active:
+                                                      controlsAreActive[7] ??
+                                                          false,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
                                         if (entry.value is Sized2DDrawable) ...[
                                           Positioned(
                                             top: objectPadding - (controlsSize),
@@ -957,6 +1025,36 @@ class _ObjectWidgetState extends State<_ObjectWidget> {
 
     final drawable = entry.value;
 
+    if (drawable is Sized1DDrawable) {
+      final initial = initialScaleDrawables[index] as Sized1DDrawable;
+      final vertical = axis == Axis.vertical;
+      final length =
+          ((vertical ? details.localPosition.dy : details.localPosition.dx) *
+              (isReversed ? -1 : 1));
+      final initialLength = initial.length;
+
+      final totalLength = (length / initial.scale + initialLength)
+          .clamp(0, double.infinity) as double;
+
+      final offsetPosition = Offset(
+        vertical ? 0 : (isReversed ? -1 : 1) * length / 2,
+        vertical ? (isReversed ? -1 : 1) * length / 2 : 0,
+      );
+
+      final rotateOffset = Matrix4.identity()
+        ..rotateZ(initial.rotationAngle)
+        ..translate(offsetPosition.dx, offsetPosition.dy)
+        ..rotateZ(-initial.rotationAngle);
+      final position = Offset(rotateOffset[12], rotateOffset[13]);
+
+      final newDrawable = drawable.copyWith(
+        length: totalLength,
+        position: initial.position + position,
+      );
+      updateDrawable(drawable, newDrawable);
+      return;
+    }
+
     if (drawable is! Sized2DDrawable) return;
 
     final initial = initialScaleDrawables[index];
@@ -992,11 +1090,13 @@ class _ObjectWidgetState extends State<_ObjectWidget> {
       ..rotateZ(-initial.rotationAngle);
     final position = Offset(rotateOffset[12], rotateOffset[13]);
 
+    final size = Size(
+      vertical ? drawable.size.width : totalLength,
+      vertical ? totalLength : drawable.size.height,
+    );
+
     final newDrawable = drawable.copyWith(
-      size: Size(
-        vertical ? drawable.size.width : totalLength,
-        vertical ? totalLength : drawable.size.height,
-      ),
+      size: size,
       position: initial.position + position,
       // scale: scale,
       // rotation: assistedRotation,
@@ -1022,6 +1122,7 @@ class _ObjectWidgetState extends State<_ObjectWidget> {
       transformationScale = math.sqrt(_m4storage[8] * _m4storage[8] +
           _m4storage[9] * _m4storage[9] +
           _m4storage[10] * _m4storage[10]);
+      print("onTransformUpdated $transformationScale");
     });
   }
 }
