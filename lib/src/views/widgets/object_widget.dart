@@ -141,6 +141,7 @@ class _ObjectWidgetState extends State<_ObjectWidget> {
   Widget build(BuildContext context) {
     final drawables = this.drawables;
     return LayoutBuilder(builder: (context, constraints) {
+      print("drawables $constraints");
       return Stack(
         children: [
           Positioned.fill(
