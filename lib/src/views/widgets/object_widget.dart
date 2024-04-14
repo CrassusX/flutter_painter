@@ -151,6 +151,7 @@ class _ObjectWidgetState extends State<_ObjectWidget> {
             final drawable = entry.value;
             final selected = drawable == controller?.selectedObjectDrawable;
             final size = drawable.getSize(maxWidth: constraints.maxWidth);
+            print("drawable size $size");
             final widget = Padding(
               padding: EdgeInsets.all(objectPadding),
               child: SizedBox(
