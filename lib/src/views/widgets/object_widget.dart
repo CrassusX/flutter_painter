@@ -750,6 +750,7 @@ class _ObjectWidgetState extends State<_ObjectWidget> {
 
     // Calculate scale of object reference to the initial object scale
     final scale = initialDrawable.scale * details.scale;
+    print("new scale: $scale");
 
     // Calculate the rotation of the object reference to the initial object rotation
     // and normalize it so that its between 0 and 2*pi
