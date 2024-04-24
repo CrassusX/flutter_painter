@@ -164,6 +164,15 @@ class _FlutterPainterWidget extends StatelessWidget {
                   panEnabled: controller.settings.scale.enabled &&
                       (controller.freeStyleSettings.mode == FreeStyleMode.none),
                   scaleEnabled: controller.settings.scale.enabled,
+                  onInteractionUpdate: (details) {
+                    print("onInteractionUpdate $details");
+                  },
+                  onInteractionStart: (details) {
+                    print("onInteractionStart $details");
+                  },
+                  onInteractionEnd: (details) {
+                    print("onInteractionEnd $details");
+                  },
                   child: _FreeStyleWidget(
                       // controller: controller,
                       child: _TextWidget(
